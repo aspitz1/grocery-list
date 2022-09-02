@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import Form from './Form';
+import List from './List';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+type AppState = {
+  groceryItems: string[]
+}
+
+class App extends Component<{}, AppState> {
+  constructor() {
+    super({});
+    this.state = {
+      groceryItems: []
+    }
+  }
+
+  submitGroceryItem = (groceryItem: string) => {
+    this.setState({ groceryItems: [...this.state.groceryItems, groceryItem] })
+  }
+
+  render() {
+    return (
+      <main>
+        <h1>Grocery List</h1>
+        <Form submitGroceryItem={this.submitGroceryItem}/>
+        <List groceryItems={this.state.groceryItems}/>
+      </main>
+    )
+  }
 }
 
 export default App;
